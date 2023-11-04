@@ -34,7 +34,9 @@ class HashTable:
     
     def delete(self,key):
         h = self.get_hash(key)
-        self.arr[h] = None
+        for idx, element in enumerate(self.arr[h]):
+            if element[0] == key: 
+                del self.arr[h][idx]
      
     def print_hash(self):
         for i in self.arr:
@@ -43,18 +45,13 @@ class HashTable:
 
 if __name__ == '__main__':
     t = HashTable()
-    print(t.get_hash("march 6"))
-    print(t.get_hash("march 17"))
-    # t.add("march 6", 130)
-    # t.add("march 22", 110)
-    # t.add("march 1", 20)
-    # t.add("march 5", 5)
-    # t.get("march 6")
-    # t.get("march 22")
-    # t.get("march 1")
-    # t.get("march 5")
-    # t.print_hash()
-    # print(" ")
-    # t.delete("march 6")
-    # t.print_hash()
+    t.add("march 6", 130)
+    t.add("march 17", 5)
+    t.add("march 6", 150)
+    t.add("march 22", 110)
+    t.add("march 1", 20)
+    t.print_hash()
+    t.delete("march 6")
+    t.print_hash()
+    
     
