@@ -27,8 +27,10 @@ class HashTable:
 
     def get(self, key): #__getitem__
         h = self.get_hash(key)
-        
-        return self.arr[h]
+        for element in self.arr[h]:
+            #check the keys in the linked list
+            if element[0] == key:
+                return element[1]
     
     def delete(self,key):
         h = self.get_hash(key)

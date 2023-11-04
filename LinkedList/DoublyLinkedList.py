@@ -1,25 +1,12 @@
 class Node:
-    def __init__(self, data=None, next=None):
+    def __init__(self, data=None, next=None, prev=None):
         self.data = data
         self.next = next
+        self.prev = prev
 
 class LinkedList:
     def __init__(self):
         self.head = None
-
-    def print(self):
-        if self.head is None:
-            print("Linked List is Empty")
-            return
-        itr = self.head
-        llstr = ''
-        while itr:
-            if itr.next:
-                llstr += str(itr.data) + "-->"
-            else:
-                llstr += str(itr.data) + "-->null"
-            itr = itr.next
-        print(llstr)
 
     def get_length(self):
         if self.head is None:
@@ -32,23 +19,67 @@ class LinkedList:
             count += 1
             itr = itr.next
         return count
+    
+    def print_forward(self):
+    # This method prints list in forward direction. Use node.next
+        if self.head is None:
+            print("Linked List is Empty")
+            return -1
+        
+        itr = self.head
+        llStr = ""
+        while itr:
+            if itr.next:
+                llStr += str(itr.data) + "-->"
+            else:
+                llStr += str(itr.data) + "-->null"
+            itr = itr.next
+        print(llStr)
+    
+    def print_backward(self):
+    # Print linked list in reverse direction. Use node.prev for this.
+        if self.head is None:
+            print("Linked List is Empty")
+            return -1
+        
+        itr = self.get_last_node()
+        llStr = ""
+        while itr:
+            if itr.prev:
+                llStr += "null-->" + str(itr.data)
+            else:
+                llStr += "-->" + str(itr.data)
+            itr = itr.prev
+        print(llStr)
 
     def insert_at_begining(self, data):
-        if self.head is None:
+        if self.head == None:
             node = Node(data, self.head, None)
             self.head = node
         else:
-            node = Node(data, self.head)
+            node = Node(data, self.head, None)
+            self.head.prev = node
+            self.head = node
+
+    def get_last_node(self):
+        if self.head is None:
+            return
+        
+        itr = self.head
+        #tranverse through the entire linked list
+        while itr.next:
+            itr = itr.next
+        #return last element
+        return itr
 
     def insert_at_end(self,data):
         if self.head is None:
             self.head = Node(data, None)
             return
         
-        itr = self.head
-        while itr.next:
-            itr = itr.next
-        itr.next = Node(data, None)
+        itr = self.get_last_node()
+        
+        itr.next = Node(data, None, itr.prev)
 
     def insert_at(self, index, data):
         #index out of bounds
@@ -148,11 +179,17 @@ class LinkedList:
 
 if __name__ == '__main__':
     ll = LinkedList()
-    ll.insert_values(["banana","mango","grapes","orange"])
-    ll.insert_at(1,"blueberry")
-    ll.remove_at(2)
-    ll.print()
+    ll.insert_at_begining(2)
+    ll.insert_at_begining(5)
+    ll.insert_at_begining(20)
+    ll.print_forward()
+    ll.print_backward()
+    print(ll.get_length())
+    # ll.insert_values(["banana","mango","grapes","orange"])
+    # ll.insert_at(1,"blueberry")
+    # ll.remove_at(2)
+    # ll.print()
 
-    ll.insert_values([45,7,12,567,99])
-    ll.insert_at_end(67)
-    ll.print()
+    # ll.insert_values([45,7,12,567,99])
+    # ll.insert_at_end(67)
+    # ll.print()
