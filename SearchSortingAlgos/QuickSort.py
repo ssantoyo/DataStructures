@@ -1,36 +1,113 @@
-def swap(a,b, arr):
+# implementation of quick sort in python using hoare partition scheme
+'''
+// Sorts a (portion of an) array, divides it into partitions, then sorts those
+algorithm quicksort(A, lo, hi) is 
+  // Ensure indices are in correct order
+  if lo >= hi || lo < 0 then 
+    return
+    
+  // Partition array and get the pivot index
+  p := partition(A, lo, hi) 
+      
+  // Sort the two partitions
+  quicksort(A, lo, p - 1) // Left side of pivot
+  quicksort(A, p + 1, hi) // Right side of pivot
+
+// Divides array into two partitions
+algorithm partition(A, lo, hi) is 
+  pivot := A[hi] // Choose the last element as the pivot
+
+  // Temporary pivot index
+  i := lo - 1
+
+  for j := lo to hi - 1 do 
+    // If the current element is less than or equal to the pivot
+    if A[j] <= pivot then 
+      // Move the temporary pivot index forward
+      i := i + 1
+      // Swap the current element with the element at the temporary pivot index
+      swap A[i] with A[j]
+
+  // Move the pivot element to the correct pivot position (between the smaller and larger elements)
+  i := i + 1
+  swap A[i] with A[hi]
+  return i // the pivot index
+'''
+
+def swap(arr, a, b):
     if a != b:
         arr[a], arr[b] = arr[b], arr[a]
     return arr
 
+def parition(arr, lo, hi):
+    pivot = arr[hi] #pivot is set to last element
 
-def partition(elems, start, end):
-    pivot_idx = start
-    pivot = elems[pivot_idx]
+    #temp pivot index
+    i = lo - 1
 
-    while start < end:
-        while start < len(elems) and elems[start] <= pivot:
-            start+=1
+    for j in range(lo, hi):
+        if arr[j] <= pivot:
+            i+=1
+            swap(arr, i, j)
+    i+=1
+    swap(arr,i, hi)
+    return i
 
-        while elems[end] > pivot:
-            end-=1
-        
-        if start < end:
-            swap(start, end, elems)
-    
-    swap(pivot_idx, end, elems)
-    
-    return end
 
-def QuickSort(elems, start, end):
-  if start < end:
-    pi = partition(elems, start, end)
-    QuickSort(elems, start, pi-1)
-    QuickSort(elems, pi+1, end)
+def quickSort(arr, lo, hi):
+    if lo >= hi or lo < 0:
+        return
+    pi = parition(arr, lo, hi)
+    quickSort(arr, lo, pi - 1)
+    quickSort(arr, pi +1, hi)
+
+
+
+
+#Hoares Implementation
+# def swap(a, b, arr):
+#     if a!=b:
+#         tmp = arr[a]
+#         arr[a] = arr[b]
+#         arr[b] = tmp
+
+# def quick_sort(elements, start, end):
+#     if start < end:
+#         pi = partition(elements, start, end)
+#         quick_sort(elements, start, pi-1)
+#         quick_sort(elements, pi+1, end)
+
+# def partition(elements, start, end):
+#     pivot_index = start
+#     pivot = elements[pivot_index]
+
+#     while start < end:
+#         while start < len(elements) and elements[start] <= pivot:
+#             start+=1
+
+#         while elements[end] > pivot:
+#             end-=1
+
+#         if start < end:
+#             swap(start, end, elements)
+
+#     swap(pivot_index, end, elements)
+
+#     return end
 
 
 if __name__ == '__main__':
-    elements = [11, 9, 29, 7, 2, 15, 28]
-    N = len(elements)
-    QuickSort(elements, 0, N-1)
-    print(elements)
+
+    tests = [
+        [11,9,29,7,2,15,28],
+        [3, 7, 9, 11],
+        [25, 22, 21, 10],
+        [29, 15, 28],
+        [],
+        [6]
+    ]
+
+    for elements in tests:
+        quickSort(elements, 0, len(elements)-1)
+        print(f'sorted array: {elements}')
+
