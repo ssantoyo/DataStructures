@@ -18,7 +18,7 @@ def bubble_sort(elements):
 
 '''
 Exercise Below:
-'''
+'''  
 # you can use this to sort strings too
 def bubble_sort(elements, key=None):
     size = len(elements)
@@ -26,7 +26,6 @@ def bubble_sort(elements, key=None):
     for i in range(size-1):
         swapped = False
         for j in range(size-1-i):
-            b = elements[j+1][key]
             if elements[j][key] >  elements[j+1][key]:
                 tmp = elements[j]
                 elements[j] = elements[j+1]
