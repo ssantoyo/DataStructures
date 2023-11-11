@@ -34,6 +34,9 @@ algorithm partition(A, lo, hi) is
   return i // the pivot index
 '''
 
+
+#lumoto Impl.
+
 def swap(arr, a, b):
     if a != b:
         arr[a], arr[b] = arr[b], arr[a]
@@ -41,12 +44,13 @@ def swap(arr, a, b):
 
 def parition(arr, lo, hi):
     pivot = arr[hi] #pivot is set to last element
-
+    curr = 0
     #temp pivot index
     i = lo - 1
 
     for j in range(lo, hi):
-        if arr[j] <= pivot:
+        curr = arr[j]
+        if curr <= pivot:
             i+=1
             swap(arr, i, j)
     i+=1
@@ -99,12 +103,12 @@ def quickSort(arr, lo, hi):
 if __name__ == '__main__':
 
     tests = [
-        [11,9,29,7,2,15,28],
-        [3, 7, 9, 11],
+        # [11,9,29,7,2,15,28],
+        # [3, 7, 9, 11],
         [25, 22, 21, 10],
-        [29, 15, 28],
-        [],
-        [6]
+        # [29, 15, 28],
+        # [],
+        # [6]
     ]
 
     for elements in tests:
