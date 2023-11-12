@@ -76,6 +76,9 @@ if __name__ == '__main__':
     
     merge_sort(elements, key="time_hours", descending=True)
     pprint(elements)
+    print()
+    merge_sort(elements, key="time_hours", descending=False)
+    pprint(elements)
     # merge_sort(elements, key="name")
     # print()
     # pprint(elements)
